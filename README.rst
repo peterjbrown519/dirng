@@ -16,6 +16,7 @@ Happy to hear from anyone who's interested in a similar project :)
 ####################
 Installation
 ####################
+
 Dependencies
 ------------
 - *SDPA solver*  
@@ -53,11 +54,27 @@ The package will also be hosted on pypi_. To install from here run
 #####
 Usage
 #####
-Explicit examples are provided in */examples/*. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script_.
-Objects
+Explicit examples are provided in */examples/*. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script_. For full details on functionality please see the comments within the module files.
+
+Classes
 -------
-There are 
+There are three classes in dirng.
 
+1.	**Game**
+	
+	*Description*
+	
+		A *Game* object represents a nonlocal game which will be played by the untrusted devices. 
 
+	*Attributes*
+		
+		- name: Name of the game.
+		- score: Expected score achieved by the devices.
+		- delta: Width of confidence interval about the expected score.
+		- matrix: Matrix representing the coefficients of the Bell-expression. Matrix is written in `CG-form`_.
+		
+**Still under construction**
 
-.. _script:: >>> Hello
+.. _script: Hello
+
+.. Footnote the cg-form and explain usage.
