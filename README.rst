@@ -20,7 +20,8 @@ Dependencies
 ------------
 - *SDPA solver*  
 		For installation and downloads please visit here_.
-		*IMPORTANT CONFIGURATION NOTE*
+		
+		**IMPORTANT CONFIGURATION NOTE**
 			The default write to file precision is 3 decimal places. This has to be increased prior to usage, otherwise errors will affect solutions. This precision can be modified by changing the param.sdpa file, replacing 
 				%+8.3e     char*  YPrint   (default %+8.3e,   NOPRINT skips printout)
 			with
