@@ -53,4 +53,11 @@ The package will also be hosted on pypi_. To install from here run
 #####
 Usage
 #####
-Example scripts are provided in /examples/ detailing the basic functionality.
+Explicit examples are provided in */examples/*. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script_.
+Objects
+-------
+There are 
+
+
+
+.. _script:: >>> Hello
