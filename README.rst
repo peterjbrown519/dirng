@@ -1,7 +1,7 @@
 ####################
 Overview
 ####################
-A python package for developing device-independent randomness expansion protocols - based on work in [DIRNG]_. Package aims to provide a user-friendly method of constructing and analysing device-independent randomness expansion protocols. The semidefinite relaxations are performed using the ncpol2sdpa package [NCPOL]_ and the resulting SDPs are computed using the SDPA solver [SDPA]_. Many thanks go to the developers of these latter two projects.
+A python3 package for developing device-independent randomness expansion protocols - based on work in [DIRNG]_. Package aims to provide a user-friendly method of constructing and analysing device-independent randomness expansion protocols. The semidefinite relaxations are performed using the ncpol2sdpa package [NCPOL]_ and the resulting SDPs are computed using the SDPA solver [SDPA]_. Many thanks go to the developers of these latter two projects.
 
 Hoping in the future to extend this to other DI tools, developing some DIQI library, e.g. DIQKD, DIRA, steering...
 
@@ -19,7 +19,7 @@ Installation
 Dependencies
 ------------
 - *SDPA solver*  
-		For installation and downloads please visit their sourceforge page_.
+		For installation instructions and downloads please visit their sourceforge page_.
 		
 		**Important configuration note**
 		
@@ -32,3 +32,20 @@ Dependencies
 					*%+8.8e     char\*  YPrint   (default %+8.3e,   NOPRINT skips printout).*
 
 .. _page: http://sdpa.sourceforge.net/download.html
+
+Installation from source
+------------------------
+1. Download repository
+2. From inside the top dirng directory run
+
+	python3 setup.py install
+	
+Installation with pip
+---------------------
+The package will also be hosted on pypi_. To install from here run
+
+	pip3 install dirng
+
+.. _pypi: https://pypi.org
+	
+	
