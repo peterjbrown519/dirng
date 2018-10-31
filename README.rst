@@ -30,6 +30,8 @@ Dependencies
 			with
 				
 					*%+8.8e     char\*  YPrint   (default %+8.3e,   NOPRINT skips printout).*
+					
+			Please also make sure that a copy of the mpdified param.sdpa is located within the same directory as the executable (if not there by default).
 
 .. _page: http://sdpa.sourceforge.net/download.html
 
@@ -48,4 +50,7 @@ The package will also be hosted on pypi_. To install from here run
 
 .. _pypi: https://pypi.org
 	
-	
+#####
+Usage
+#####
+Example scripts are provided in /examples/ detailing the basic functionality.
