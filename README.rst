@@ -49,7 +49,7 @@ The package will also be hosted on pypi_. To install from here run
 
 	pip3 install dirng
 
-.. _pypi: https://pypi.org
+.. _pypi: https://pypi.org/project/dirng/
 	
 #####
 Usage
