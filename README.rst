@@ -21,14 +21,14 @@ Dependencies
 - *SDPA solver*  
 		For installation and downloads please visit their sourceforge page_.
 		
-		**Important configuration note
+		**Important configuration note**
 		
 			The default precision with which sdpa writes its solutions to file is 3 decimal places. This has to be increased prior to usage otherwise errors will be prevalent in computations. This precision can be modified by changing the param.sdpa file, replacing 
 			
-					**%+8.3e     char*  YPrint   (default %+8.3e,   NOPRINT skips printout)
+				*%+8.3e     char\*  YPrint   (default %+8.3e,   NOPRINT skips printout)*
 					
-				with
+			with
 				
-					**%+8.8e     char*  YPrint   (default %+8.3e,   NOPRINT skips printout).
+					*%+8.8e     char\*  YPrint   (default %+8.3e,   NOPRINT skips printout).*
 
 .. _page: http://sdpa.sourceforge.net/download.html
