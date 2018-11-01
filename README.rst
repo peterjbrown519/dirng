@@ -44,18 +44,11 @@ The package will also be hosted on pypi_. To install from here run
 	pip3 install dirng
 
 .. _pypi: https://pypi.org/project/dirng/
-
-Installation from source
-=========================
-1. Download repository
-2. From inside the top dirng directory run
-
-	python3 setup.py install
 	
 #####
 Usage
 #####
-Explicit examples are provided in */examples/* directory. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script_. For full details on functionality please see the comments within the module files.
+Explicit examples are provided in */examples/* directory. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script. For full details on functionality please see the comments within the module files.
 
 Classes
 -------
@@ -72,11 +65,11 @@ There are three classes in dirng.
 		- name: Name of the game.
 		- score: Expected score achieved by the devices.
 		- delta: Width of confidence interval about the expected score.
-		- matrix: Matrix representing the coefficients of the Bell-expression. Matrix is written in `CG-form` [*].
+		- matrix: Matrix representing the coefficients of the Bell-expression. Matrix is written in `CG-form` [1].
 		
 	*Usage*
 	
-	::
+::
 		from dirng import Game
 		
 		# Let's create the CHSH game (2 inputs 2 outputs 2 parties)
@@ -85,7 +78,8 @@ There are three classes in dirng.
 				     [ 0.25, 0.00, 0.00, 0.25],
 				     [ 0.00, 0.25, 0.25, 0.00]]
 
-.. [*] The Collins-Gisin form for 2-party Bell-expressions was introduced in arXiv:quant-ph/0306129_.
+
+.. [1] The Collins-Gisin form for 2-party Bell-expressions was introduced in arXiv:quant-ph/0306129_.
 .. _arXiv:quant-ph/0306129: https://arxiv.org/abs/quant-ph/0306129
 		
 **Still under construction**
