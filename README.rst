@@ -7,18 +7,19 @@ Hoping in the future to extend this to other DI tools, developing some DIQI libr
 
 Happy to hear from anyone who's interested in a similar project :)
 
-.. [DIRNG] Peter J. Brown, Sammy Ragy and Roger Colbeck, "An adaptive framework for quantum-secure device-independent randomness expansion". arxiv_.
-.. [NCPOL] `Peter Wittek. Algorithm 950: Ncpol2sdpa---Sparse Semidefinite Programming Relaxations for Polynomial Optimization Problems of Noncommuting Variables. ACM Transactions on Mathematical Software, 41(3), 21, 2015. DOI: 10.1145/2699464. arXiv:1308.6029.`
+.. [DIRNG] Peter J. Brown, Sammy Ragy and Roger Colbeck, "An adaptive framework for quantum-secure device-independent randomness expansion". arXiv:1810.13346_.
+.. [NCPOL] `Peter Wittek. Algorithm 950: Ncpol2sdpa---Sparse Semidefinite Programming Relaxations for Polynomial Optimization Problems of Noncommuting Variables. ACM Transactions on Mathematical Software, 41(3), 21, 2015. DOI: 10.1145/2699464. arXiv:1308.6029. Code available on gitlab_`
 .. [SDPA] "A high-performance software package for semidefinite programs: SDPA 7," Makoto Yamashita, Katsuki Fujisawa, Kazuhide Nakata, Maho Nakata, Mituhiro Fukuda, Kazuhiro Kobayashi, and Kazushige Goto, Research Report B-460 Dept. of Mathematical and Computing Science, Tokyo Institute of Technology, Tokyo, Japan, September, 2010.
 
-.. _arxiv: https://arxiv.org/abs/1810.13346
+.. _arXiv:1810.13346: https://arxiv.org/abs/1810.13346
+.. _gitlab: https://gitlab.com/peterwittek/ncpol2sdpa
 
 ####################
 Installation
 ####################
 
 Dependencies
-------------
+================
 - *SDPA solver*  
 		For installation instructions and downloads please visit their sourceforge page_.
 		
@@ -30,31 +31,31 @@ Dependencies
 					
 			with
 				
-					*%+8.8e     char\*  YPrint   (default %+8.3e,   NOPRINT skips printout).*
+				*%+8.8e     char\*  YPrint   (default %+8.3e,   NOPRINT skips printout).*
 					
 			Please also make sure that a copy of the mpdified param.sdpa is located within the same directory as the executable (if not there by default).
 
 .. _page: http://sdpa.sourceforge.net/download.html
 
-Installation from source
-------------------------
-1. Download repository
-2. From inside the top dirng directory run
-
-	python3 setup.py install
-	
 Installation with pip
----------------------
+=========================
 The package will also be hosted on pypi_. To install from here run
 
 	pip3 install dirng
 
 .. _pypi: https://pypi.org/project/dirng/
+
+Installation from source
+=========================
+1. Download repository
+2. From inside the top dirng directory run
+
+	python3 setup.py install
 	
 #####
 Usage
 #####
-Explicit examples are provided in */examples/*. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script_. For full details on functionality please see the comments within the module files.
+Explicit examples are provided in */examples/* directory. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script_. For full details on functionality please see the comments within the module files.
 
 Classes
 -------
@@ -71,10 +72,20 @@ There are three classes in dirng.
 		- name: Name of the game.
 		- score: Expected score achieved by the devices.
 		- delta: Width of confidence interval about the expected score.
-		- matrix: Matrix representing the coefficients of the Bell-expression. Matrix is written in `CG-form`_.
+		- matrix: Matrix representing the coefficients of the Bell-expression. Matrix is written in `CG-form` [*].
+		
+	*Usage*
+	
+	::
+		from dirng import Game
+		
+		# Let's create the CHSH game (2 inputs 2 outputs 2 parties)
+		chsh_coefficients = [[ 0.25, 0.00, 0.25, 0.00],
+				     [ 0.00, 0.25, 0.00, 0.25],
+				     [ 0.25, 0.00, 0.00, 0.25],
+				     [ 0.00, 0.25, 0.25, 0.00]]
+
+.. [*] The Collins-Gisin form for 2-party Bell-expressions was introduced in arXiv:quant-ph/0306129_.
+.. _arXiv:quant-ph/0306129: https://arxiv.org/abs/quant-ph/0306129
 		
 **Still under construction**
-
-.. _script: Hello
-
-.. Footnote the cg-form and explain usage.
