@@ -1,4 +1,5 @@
 from dirng.devices import Devices
+from dirng.config import DEFAULT_SOLVER_PATH, SUPPORTED_SOLVERS
 from dirng.games import Game
 from dirng.device_methods import EBGames, distribution2Score
 from dirng.cg_methods import expression2CG, distribution2CG
