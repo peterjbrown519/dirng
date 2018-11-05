@@ -11,21 +11,21 @@ STEP 1.
 Creating the devices requires us to specify some of its attributes.
 
 Of particular importance are:
-	- io_config 		--  The input/output configuration. This is a list of the form
-	 						[[|A_1|, ..., |A_m|], [|B_1|, ..., |B_n|]]
-							where |A_i| is the number of outputs for the i-th measurment
-							on device A. For G_CHSH the io_config is [[2,2], [2,2,2]].
-	- relaxation_level 	--  Level of the NPA hierarchy to relax to.
-	- generation_inputs --	Inputs to be used on generation rounds.
-	- sdpa_path			--	Path to the sdpa solver.
+	- io_config 		--  	The input/output configuration. This is a list of the form
+	 				[[|A_1|, ..., |A_m|], [|B_1|, ..., |B_n|]]
+					where |A_i| is the number of outputs for the i-th measurment
+					on device A. For G_CHSH the io_config is [[2,2], [2,2,2]].
+	- relaxation_level 	--  	Level of the NPA hierarchy to relax to.
+	- generation_inputs 	--	Inputs to be used on generation rounds.
+	- sdpa_path		--	Path to the sdpa solver.
 """
 # Device settings
 io_config = [[2,2], [2,2,2]]
 device_settings = 	{'name' : 'chsh',
-					'io_config' : io_config,
-					'relaxation_level' : 2,
-					'generation_inputs' : [1,2],
-					'solver' : SOLVER}
+			'io_config' : io_config,
+			'relaxation_level' : 2,
+			'generation_inputs' : [1,2],
+			'solver' : SOLVER}
 
 # Initialise the device object
 dev = di.Devices(device_settings)
@@ -35,20 +35,20 @@ Now we need to specify what games the devices will play. To do this we must indi
 the coefficients within the different Bell-expressions.
 
 We write the coefficients of the probabilities in a table of the form
-						 	|	s00|00  s01|00  s00|01  s01|01	s00|02  s01|02  |
+					|	s00|00  s01|00  s00|01  s01|01	s00|02  s01|02  |
 			expression =	|	s10|00  s11|00  s10|01  s11|01	s10|02  s11|02	|
-							|	s00|10  s01|10  s00|11  s01|11	s00|12  s01|12	|
-							|	s10|10  s11|10  s10|11  s11|11	s10|12  s11|12	|
+					|	s00|10  s01|10  s00|11  s01|11	s00|12  s01|12	|
+					|	s10|10  s11|10  s10|11  s11|11	s10|12  s11|12	|
 """
 chsh_coefficients = 		[[ 0.25, 0.00, 0.25, 0.00, 0.00, 0.00],
-						 	[ 0.00, 0.25, 0.00, 0.25, 0.00, 0.00],
-						 	[ 0.25, 0.00, 0.00, 0.25, 0.00, 0.00],
-						 	[ 0.00, 0.25, 0.25, 0.00, 0.00, 0.00]]
+				[ 0.00, 0.25, 0.00, 0.25, 0.00, 0.00],
+				[ 0.25, 0.00, 0.00, 0.25, 0.00, 0.00],
+				[ 0.00, 0.25, 0.25, 0.00, 0.00, 0.00]]
 # When (X,Y) = (0,2) we should have A=B
 alignment_coefficients = 	[[ 0.00, 0.00, 0.00, 0.00, 1.00, 0.00],
-							[ 0.00, 0.00, 0.00, 0.00, 0.00, 1.00],
-							[ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-							[ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]]
+				[ 0.00, 0.00, 0.00, 0.00, 0.00, 1.00],
+				[ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+				[ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]]
 
 """
 Now we create the game objects that we will supply to the device.
