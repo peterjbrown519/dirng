@@ -138,7 +138,7 @@ class Devices:
 		self._io_config = [[2,2],[2,2]]
 		self._generation_inputs = [0,0]
 		self._relaxation_level = 2
-		self._solver = DEFAULT_SOLVER_PATH
+		self._solver = None
 		self._games = []
 		self._score = []
 		self._delta = []
@@ -148,9 +148,8 @@ class Devices:
 		self._gp = None
 		self._hmin = None
 		self._status = None
-		self._solver_name = 'sdpa'
-		self._solver_exe = {'executable' : DEFAULT_SOLVER_PATH + 'sdpa',
-							'paramsfile' : DEFAULT_SOLVER_PATH + 'param.sdpa'}
+		self._solver_name = None
+		self._solver_exe = None
 
 		# Keep track when new games are added or scores are modified
 		self._needs_relaxing = True
@@ -509,6 +508,8 @@ class Devices:
 		"""
 		Creates the sdp relaxation object from ncpol2sdpa.
 		"""
+		if self.solver == None:
+			self.solver = DEFAULT_SOLVER_PATH
 		self._eq_cons = []				# equality constraints
 		self._proj_cons = {}			# projective constraints
 		self._A_ops = []				# Alice's operators
