@@ -1,9 +1,7 @@
-
 import numpy as np
-from copy import deepcopy
-from math import cos, sin, pi, exp, log
+from math import cos, sin, pi
 from scipy.optimize import minimize
-from numpy.random import uniform, normal
+from numpy.random import normal
 import ncpol2sdpa as ncp
 
 ########################################
@@ -88,30 +86,24 @@ def qubitMeasurement(theta, a = None, b = None, eta = 1.0, vis = 1.0):
 	probabilities = np.trace(np.matmul(rho,measurements), axis1 = -2, axis2=-1)
 	return probabilities
 
-def cgDistribution(angles, eta = 1.0, vis = 1.0):
+def distribution(angles, eta = 1.0, vis = 1.0):
 	"""
 	Given now a collection of angles in the form
 					[theta, [a1,a2,...], [b1,b2,...]]
-	Returns the behaviour in cg-matrix form.
+	Returns the full behaviour in block form.
 	"""
 	theta = angles[0]
 	a_angles = angles[1]
 	b_angles = angles[2]
 
-	# First we construct the joint measurement block of the cg-matrix
-	joint_block = np.array([[qubitMeasurement(theta, a, b, eta, vis)[0][0] for b in b_angles] for a in a_angles])
-	# Then we construct the top row (w/o the element [0,0])
-	bob_row = np.array([qubitMeasurement(theta, None, b, eta, vis)[0] for b in b_angles])
-	# Then we construct the first column beginning with element 1 for the normalisation.
-	alice_col = np.array([[1]] + [[qubitMeasurement(theta, a, None, eta, vis)[0]] for a in a_angles])
-	cg_mat = np.hstack((alice_col, np.vstack((bob_row, joint_block))))
-	return cg_mat
+	dist = np.block([[qubitMeasurement(theta, a, b, eta, vis) for b in b_angles] for a in a_angles])
+	return dist
 
 def angles2Score(device, angles, eta=1.0, vis=1.0):
 	"""
 	given a set of angles, return the score vector.
 	"""
-	return device.scoreVectorFromDistribution(cgDistribution(angles, eta, vis))
+	return device.distribution2Score(distribution(angles, eta, vis))
 
 
 def angles2DualFunctional(device, angles, eta=1.0, vis=1.0):
@@ -119,8 +111,8 @@ def angles2DualFunctional(device, angles, eta=1.0, vis=1.0):
 	Given a set of angles, compute the score vector v and return the dual functional gv.
 	"""
 	# Compute the dual vars
-	av, lv, _, _, _ = device.dualSolution(angles2Score(device,angles, eta, vis))
-	cg_shift = device._cgShift()
+	av, lv, _, _, _ = device.dualSolution(angles2Score(device, angles, eta, vis))
+	cg_shift = device._cgshift
 	def gv(w):
 		return av + np.dot(lv, w - cg_shift)
 	return gv
@@ -137,10 +129,10 @@ def optimiseQubitGP(device, starting_angles, eta=1.0, vis=1.0, tol=1e-6):
 	"""
 	Iteratively optimise the angle choices by trying to minimise the extracted dual functional
 	"""
-	a_in, b_in = device.aIn(), device.bIn()
+	a_in, b_in = device.num_inputs
 	bounds = [[0,pi/2]] + [[-pi,pi] for k in range(a_in + b_in)]
 	old_ang, new_ang = starting_angles[:], starting_angles[:]
-	cg_shift = device._cgShift()
+	cg_shift = device._cgshift
 
 
 	old_gp = 2.0
