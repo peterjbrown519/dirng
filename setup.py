@@ -16,10 +16,10 @@ class CustomInstallCommand(install):
 		install.finalize_options(self)
 
 	def run(self):
-		install.run(self)
 		with open(os.path.join(os.path.dirname(__file__), 'dirng', 'config.py'), 'w') as f:
 			f.write('DEFAULT_SOLVER_PATH = \'' + str(self.solver) + '\'\n')
 			f.write('SUPPORTED_SOLVERS = [\'sdpa\', \'sdpa_dd\', \'sdpa_qd\', \'sdpa_gmp\', \'sdpa.exe\']')
+		install.run(self)
 
 setup(name='dirng',
 	  version='1.0.0',
