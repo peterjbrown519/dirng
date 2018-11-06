@@ -6,7 +6,8 @@ from tabulate import tabulate
 from .device_methods import guessingProbabilityObjectiveFunction, distribution2Score
 from .cg_methods import expression2CG, distribution2CG
 from .games import Game
-from .config import DEFAULT_SOLVER_PATH, SUPPORTED_SOLVERS
+from pkg_resources import resource_filename, Requirement
+import json
 import os, warnings
 
 class Devices:
@@ -129,9 +130,14 @@ class Devices:
 		3 - Additional solver support (Mosek)
 	"""
 
-
 	#Class constructor
 	def __init__(self, settings = {}):
+		# Config file load 
+		path = resource_filename('dirng', 'etc/dirng_config.json')
+		with open(path, 'r') as file:
+			cfg = json.load(file)
+		DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
+		SUPPORTED_SOLVERS = cfg['SUPPORTED_SOLVERS']
 		# Default settings
 		# Can be directly modified
 		self._name = 'device1'
