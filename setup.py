@@ -1,6 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.command.install import install
+import pkg_resources
 import os
+import json
+
 
 
 class CustomInstallCommand(install):
@@ -16,9 +19,13 @@ class CustomInstallCommand(install):
 		install.finalize_options(self)
 
 	def run(self):
-		with open(os.path.join(os.path.dirname(__file__), 'dirng', 'config.py'), 'w') as f:
-			f.write('DEFAULT_SOLVER_PATH = \'' + str(self.solver) + '\'\n')
-			f.write('SUPPORTED_SOLVERS = [\'sdpa\', \'sdpa_dd\', \'sdpa_qd\', \'sdpa_gmp\', \'sdpa.exe\']')
+		manager = pkg_resources.ResourceManager()
+		config_file = manager.resource_filename('dirng','etc/dirng_config.json')
+		with open(config_file, 'r') as f:
+			cfg = json.load(f)
+		cfg["DEFAULT_SOLVER_PATH"] = self.solver
+		with open(config_file, 'w') as f:
+			json.dump(cfg, f)
 		install.run(self)
 
 setup(name='dirng',
@@ -32,7 +39,9 @@ setup(name='dirng',
 	  'install': CustomInstallCommand,
 		},
 	  license='GNU',
-	  packages=['dirng'],
+	  packages= find_packages(),
+	  package_dir={'dirng': 'dirng'},
+	  package_data ={'dirng': ['etc/dirng_config.json']},
 	  install_requires=[
 	  'numpy',
 	  'scipy',
