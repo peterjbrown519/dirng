@@ -42,6 +42,7 @@ setup(name='dirng',
 	  packages= find_packages(),
 	  package_dir={'dirng': 'dirng'},
 	  package_data ={'dirng': ['etc/dirng_config.json']},
+     	  include_package_data = True,
 	  install_requires=[
 	  'numpy',
 	  'scipy',
