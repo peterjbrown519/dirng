@@ -129,7 +129,7 @@ class Devices:
 		2 - Update handling of sdp solution status flags when new ncpol2sdpa is released.
 		3 - Additional solver support (Mosek)
 	"""
-	path = resource_filename(Requirement.parse('dirng'), 'dirng/etc/dirng_config.json')
+	path = resource_filename('dirng', 'etc/dirng_config.json')
 	with open(path, 'r') as file:
 		cfg = json.load(file)
 	DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
