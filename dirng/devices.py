@@ -6,7 +6,8 @@ from tabulate import tabulate
 from .device_methods import guessingProbabilityObjectiveFunction, distribution2Score
 from .cg_methods import expression2CG, distribution2CG
 from .games import Game
-from .config import DEFAULT_SOLVER_PATH, SUPPORTED_SOLVERS
+from pkg_resources import resource_filename, Requirement
+import json
 import os, warnings
 
 class Devices:
@@ -128,6 +129,11 @@ class Devices:
 		2 - Update handling of sdp solution status flags when new ncpol2sdpa is released.
 		3 - Additional solver support (Mosek)
 	"""
+	path = resource_filename(Requirement.parse('dirng'), 'dirng/etc/dirng_config.json')
+	with open(path, 'r') as file:
+		cfg = json.load(file)
+	DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
+	SUPPORTED_SOLVERS = cfg['SUPPORTED_SOLVERS']
 
 
 	#Class constructor
