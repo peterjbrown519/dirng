@@ -129,15 +129,15 @@ class Devices:
 		2 - Update handling of sdp solution status flags when new ncpol2sdpa is released.
 		3 - Additional solver support (Mosek)
 	"""
-	path = resource_filename('dirng', 'etc/dirng_config.json')
-	with open(path, 'r') as file:
-		cfg = json.load(file)
-	DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
-	SUPPORTED_SOLVERS = cfg['SUPPORTED_SOLVERS']
-
 
 	#Class constructor
 	def __init__(self, settings = {}):
+		# Config file load 
+		path = resource_filename('dirng', 'etc/dirng_config.json')
+		with open(path, 'r') as file:
+			cfg = json.load(file)
+		DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
+		SUPPORTED_SOLVERS = cfg['SUPPORTED_SOLVERS']
 		# Default settings
 		# Can be directly modified
 		self._name = 'device1'
