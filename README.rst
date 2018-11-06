@@ -7,13 +7,6 @@ Hoping in the future to extend this to other DI tools, developing some DIQI libr
 
 Happy to hear from anyone who's interested in a similar project :)
 
-.. [DIRNG] Peter J. Brown, Sammy Ragy and Roger Colbeck, "An adaptive framework for quantum-secure device-independent randomness expansion". arXiv:1810.13346_.
-.. [NCPOL] Peter Wittek. Algorithm 950: Ncpol2sdpa---Sparse Semidefinite Programming Relaxations for Polynomial Optimization Problems of Noncommuting Variables. ACM Transactions on Mathematical Software, 41(3), 21, 2015. DOI: 10.1145/2699464. arXiv:1308.6029. Code available on gitlab_.
-.. [SDPA] "A high-performance software package for semidefinite programs: SDPA 7," Makoto Yamashita, Katsuki Fujisawa, Kazuhide Nakata, Maho Nakata, Mituhiro Fukuda, Kazuhiro Kobayashi, and Kazushige Goto, Research Report B-460 Dept. of Mathematical and Computing Science, Tokyo Institute of Technology, Tokyo, Japan, September, 2010.
-
-.. _arXiv:1810.13346: https://arxiv.org/abs/1810.13346
-.. _gitlab: https://gitlab.com/peterwittek/ncpol2sdpa
-
 ####################
 Installation
 ####################
@@ -44,7 +37,7 @@ Installation with pip
 =========================
 The package will also be hosted on pypi_. To install from here run the command
 
-.. code-block::
+.. code-block:: console
 
 	pip3 install dirng
 
@@ -56,7 +49,7 @@ Usage
 Explicit examples are provided in */examples/* directory. Here we review the main structure of the package and look at a general script demonstrating its usage. Those looking for a quick start can skip straight to that script. For full details on functionality please see the comments within the module's files.
 
 Classes
--------
+========
 There are three classes in dirng.
 
 1.	**Game**
@@ -74,8 +67,7 @@ There are three classes in dirng.
 
 	*Usage*
 
-		.. code-block::
-			:linenos:
+		.. code-block:: python
 
 				from dirng import Game
 
@@ -119,10 +111,8 @@ There are three classes in dirng.
 
 	*Usage*
 
-		.. code-block::
-			:linenos:
+		.. code-block:: python
 
-				# Continuing from before
 				from dirng import Devices
 
 				# We can initialise the device by passing it a settings dictionary.
@@ -153,9 +143,8 @@ There are three classes in dirng.
 
 		If we want to change the scores of the games played by the device, we can set them all at once by
 
-		.. code-block::
-			:linenos:
-
+		.. code-block:: python
+			
 			# Setting scores (and the delta values) for the two games that dev plays
 			dev.score = [0.8, 0.7]
 			dev.delta = [0.0001, 0.001]
@@ -167,8 +156,7 @@ There are three classes in dirng.
 
 		A useful function for calculating score vectors is distribution2Score()
 
-		.. code-block::
-			:linenos:
+		.. code-block:: python
 
 			# Suppose we have some distribution
 			p = [[0.20, 0.30, 0.30, 0.20],
@@ -188,3 +176,9 @@ There are three classes in dirng.
 
 **Still under construction**
 
+.. [DIRNG] Peter J. Brown, Sammy Ragy and Roger Colbeck, "An adaptive framework for quantum-secure device-independent randomness expansion". arXiv:1810.13346_.
+.. [NCPOL] Peter Wittek. Algorithm 950: Ncpol2sdpa---Sparse Semidefinite Programming Relaxations for Polynomial Optimization Problems of Noncommuting Variables. ACM Transactions on Mathematical Software, 41(3), 21, 2015. DOI: 10.1145/2699464. arXiv:1308.6029. Code available on gitlab_.
+.. [SDPA] "A high-performance software package for semidefinite programs: SDPA 7," Makoto Yamashita, Katsuki Fujisawa, Kazuhide Nakata, Maho Nakata, Mituhiro Fukuda, Kazuhiro Kobayashi, and Kazushige Goto, Research Report B-460 Dept. of Mathematical and Computing Science, Tokyo Institute of Technology, Tokyo, Japan, September, 2010.
+
+.. _arXiv:1810.13346: https://arxiv.org/abs/1810.13346
+.. _gitlab: https://gitlab.com/peterwittek/ncpol2sdpa
