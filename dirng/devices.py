@@ -6,7 +6,7 @@ from tabulate import tabulate
 from .device_methods import guessingProbabilityObjectiveFunction, distribution2Score
 from .cg_methods import expression2CG, distribution2CG
 from .games import Game
-from pkg_resources import resource_filename, Requirement
+from pkg_resources import resource_filename
 import json
 import os, warnings
 
@@ -136,8 +136,8 @@ class Devices:
 		path = resource_filename('dirng', 'etc/dirng_config.json')
 		with open(path, 'r') as file:
 			cfg = json.load(file)
-		DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
-		SUPPORTED_SOLVERS = cfg['SUPPORTED_SOLVERS']
+		self.DEFAULT_SOLVER_PATH = cfg['DEFAULT_SOLVER_PATH']
+		self.SUPPORTED_SOLVERS = cfg['SUPPORTED_SOLVERS']
 		# Default settings
 		# Can be directly modified
 		self._name = 'device1'
@@ -260,7 +260,7 @@ class Devices:
 		# First check if the path supplied is a directory
 		if os.path.isdir(value):
 			# Look for one of the supported solvers
-			for solver in SUPPORTED_SOLVERS:
+			for solver in self.SUPPORTED_SOLVERS:
 				new_path = os.path.join(value, solver)
 				if os.path.exists(new_path):
 					# Hooray we found it
@@ -515,7 +515,7 @@ class Devices:
 		Creates the sdp relaxation object from ncpol2sdpa.
 		"""
 		if self.solver == None:
-			self.solver = DEFAULT_SOLVER_PATH
+			self.solver = self.DEFAULT_SOLVER_PATH
 		self._eq_cons = []				# equality constraints
 		self._proj_cons = {}			# projective constraints
 		self._A_ops = []				# Alice's operators
