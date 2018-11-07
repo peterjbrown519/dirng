@@ -34,6 +34,8 @@ Dependencies
 
 Note: To automatically point the package to the solver, one can edit the dirng_config.json file replacing '/path/to/solver/' with the appropriate path. The location of the config file can be found by running \'*pip3 show dirng*\', it should be in the /etc/ subdirectory.  (**Windows users**: Paths must be specified using '\\\\' instead of '\\' in the path name.)
 
+If this is done then the solver argument never has to be passed to the device, it will be set automatically. 
+
 Installation with pip
 =========================
 The package will also be hosted on pypi_. To install from here run the command
