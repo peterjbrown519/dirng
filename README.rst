@@ -13,6 +13,7 @@ Installation
 
 Dependencies
 ================
+
 	**SDP solver**
 
 		Currently the only supported solvers are those from the sdpa family. They can be downloaded and extracted from their  sourceforge page_.
@@ -39,7 +40,7 @@ The package will also be hosted on pypi_. To install from here run the command
 
 .. code-block:: console
 
-	pip3 install dirng
+	pip3 install dirng --user
 
 .. _pypi: https://pypi.org/project/dirng/
 
@@ -67,32 +68,32 @@ There are three classes in dirng.
 
 	*Usage*
 
-		.. code-block:: python
+		.. code-block:: python3
+		
+			from dirng import Game
 
-				from dirng import Game
+			"""
+			Let's create the CHSH game - 2 inputs / 2 outputs
 
-				"""
-				Let's create the CHSH game - 2 inputs / 2 outputs
+			If p(a,b|x,y) is the distribution of the devices, then we write our
+			Bell-expressions as \sum_{abxy} s_ab|xy p(a,b|x,y). The matrix of
+			coefficients is then
+							|  s00|00	s01|00	s00|01	s01|01	|
+							|  s10|00	s11|00	s10|01	s11|01	|
+							|  s00|10	s01|10	s00|11	s01|11	|
+							|  s10|10	s11|10	s10|11	s11|11	|
+			"""
 
-				If p(a,b|x,y) is the distribution of the devices, then we write our
-				Bell-expressions as \sum_{abxy} s_ab|xy p(a,b|x,y). The matrix of
-				coefficients is then
-								|  s00|00	s01|00	s00|01	s01|01	|
-								|  s10|00	s11|00	s10|01	s11|01	|
-								|  s00|10	s01|10	s00|11	s01|11	|
-								|  s10|10	s11|10	s10|11	s11|11	|
-				"""
+			chsh_coefficients = [[ 0.25, 0.00, 0.25, 0.00],
+					     [ 0.00, 0.25, 0.00, 0.25],
+					     [ 0.25, 0.00, 0.00, 0.25],
+					     [ 0.00, 0.25, 0.25, 0.00]]
 
-				chsh_coefficients = [[ 0.25, 0.00, 0.25, 0.00],
-						     		 [ 0.00, 0.25, 0.00, 0.25],
-						     		 [ 0.25, 0.00, 0.00, 0.25],
-						     		 [ 0.00, 0.25, 0.25, 0.00]]
+			# Initialising the game object
+			chsh = Game(name = 'chsh', score = 0.853, matrix = chsh_coefficients, delta = 0.001)
 
-				# Initialising the game object
-				chsh = Game(name = 'chsh', score = 0.853, matrix = chsh_coefficients, delta = 0.001)
-
-				# If the score was maybe a little ambitious, we can change it...
-				chsh.score = 0.75
+			# If the score was maybe a little ambitious, we can change it...
+			chsh.score = 0.75
 
 2.	**Devices**
 
@@ -111,40 +112,40 @@ There are three classes in dirng.
 
 	*Usage*
 
-		.. code-block:: python
+		.. code-block:: python3
 
-				from dirng import Devices
+			from dirng import Devices
 
-				# We can initialise the device by passing it a settings dictionary.
-				device_settings = {
-					'name' : 'Mittens',
-					'io_config' : [[2,2], [2,2]],
-					'generation_inputs' : [0,0],
-					'relaxation_level' : 2,
-					'games' : [chsh],
-					'solver' : '/path/to/a/solver/'
-				}
+			# We can initialise the device by passing it a settings dictionary.
+			device_settings = {
+				'name' : 'Mittens',
+				'io_config' : [[2,2], [2,2]],
+				'generation_inputs' : [0,0],
+				'relaxation_level' : 2,
+				'games' : [chsh],
+				'solver' : '/path/to/a/solver/'
+			}
 
-				dev = Devices(device_settings)
+			dev = Devices(device_settings)
 
-				# As before these attributes can be changed after initialisation
-				dev.generation_inputs = [1,1]
-				dev.relaxation_level = 3
+			# As before these attributes can be changed after initialisation
+			dev.generation_inputs = [1,1]
+			dev.relaxation_level = 3
 
-				# We can also add additional games if they are compatible with our devices alphabet.
-				dev.games += another_game_object
+			# We can also add additional games if they are compatible with our devices alphabet.
+			dev.games += another_game_object
 
-				# The randomness can then be calculated by calling the hmin attribute
-				randomness = dev.hmin
-				print(randomness)
+			# The randomness can then be calculated by calling the hmin attribute
+			randomness = dev.hmin
+			print(randomness)
 
-				# For a general view of the device we can also call print
-				print(dev)
+			# For a general view of the device we can also call print
+			print(dev)
 
 		If we want to change the scores of the games played by the device, we can set them all at once by
 
-		.. code-block:: python
-			
+		.. code-block:: python3
+
 			# Setting scores (and the delta values) for the two games that dev plays
 			dev.score = [0.8, 0.7]
 			dev.delta = [0.0001, 0.001]
@@ -156,13 +157,13 @@ There are three classes in dirng.
 
 		A useful function for calculating score vectors is distribution2Score()
 
-		.. code-block:: python
+		.. code-block:: python3
 
 			# Suppose we have some distribution
 			p = [[0.20, 0.30, 0.30, 0.20],
-				[0.30, 0.20, 0.20, 0.30],
-				[0.25, 0.25, 0.25, 0.25],
-				[0.25, 0.25, 0.25, 0.25]]
+			     [0.30, 0.20, 0.20, 0.30],
+			     [0.25, 0.25, 0.25, 0.25],
+			     [0.25, 0.25, 0.25, 0.25]]
 
 			# We can calculate the expected score vector for a device pair by
 			w = dev.distribution2Score(p)
@@ -172,13 +173,140 @@ There are three classes in dirng.
 
 3.	**Protocol**
 
-.. _arXiv:quant-ph/0306129: https://arxiv.org/abs/quant-ph/0306129
+	*Description*
 
-**Still under construction**
+		The protocol object stores the parameters of the randomness accumulation protocol and alongside the device object, it is used to calculate the randomness accumulation rates as certified by the entropy accumulation theorem [EAT]_.
 
-.. [DIRNG] Peter J. Brown, Sammy Ragy and Roger Colbeck, "An adaptive framework for quantum-secure device-independent randomness expansion". arXiv:1810.13346_.
+	*Attributes*
+
+		- **n**: The number of rounds (interactions with the devices) in the protocol.
+		- **y**: The independent probability with which any given round is a testing round.
+		- **eps_smooth**: The smoothing epsilon.
+		- **eps_eat**: The entropy accumulation error.
+
+	*Usage*
+
+		As before we can initialise the object by passing a settings dictionary.
+
+		.. code-block:: python3
+
+			from dirng import Protocol
+
+			protocol_settings = {
+				'n' : 1e10,
+				'y' : 0.005,
+				'eps_smooth' : 1e-8,
+				'eps_eat' : 1e-8
+			}
+			protocol = Protocol(protocol_settings)
+
+			# Changing attributes still works in the same way
+			protocol.n = 1e12
+
+			# The protocol can also display its current state via the print method
+			print(protocol)
+
+		If we pass the untrusted device object we created earlier to the protocol then we can calculate the completeness error.
+
+		.. code-block python3
+
+			completeness = protocol.completeness(dev)
+
+		Now we have everything we need to compute the entropy accumulation rate (entropy gain per round) of our protocol. When the function **eatRate()** is called a min-tradeoff function (see [EAT]_) is chosen, and the corresponding accumulation rates are calculated.
+
+		**Note**: The default choice of min-tradeoff function may not yield the best accumulation rates, to aid with this we include a second method **optimiseFminChoice()** which performs a gradient ascent algorithm to improve this choice.
+
+		.. code-block:: python3
+
+
+			original_eat_rate = protocol.eatRate(dev)
+			optimised_eat_rate = protocol.optimiseFminChoice(dev)
+
+			# Let's see how much we improved
+			print('The default min-tradeoff choice gave {:.3f} bits per round of entropy.'.format(original_eat_rate))
+			print('Whereas the optimised choice of min-tradeoff function gave {:.3f} bits per round.'.format(optimised_eat_rate))
+
+
+Other functions
+===============
+
+The package contains various other functions and the user is encouraged to read the explanatory comments within the files. Briefly, in addition to the class files there is
+
+- **dirng.qubit_methods**: Contains functions implementing a simple model of the untrusted devices as entangled qubit systems. In particular includes modelling of inefficient detectors and white noise.
+- **dirng.eat_methods**: Further functions relating to the EAT and the calculation of entropy accumulation rates.
+
+Extended CHSH protocol example
+==============================
+
+Below is a script implementing the extended CHSH protocol which was given as an example protocol in [DIRNG]_. A more verbose version is given in examples/chsh.py.
+
+.. code-block:: python3
+
+	from dirng import Game, Protocol, Devices
+	from math import sqrt
+
+	SOLVER = '/path/to/a/solver/'
+
+	# Initialising the device
+	device_settings = 	{'name' : 'chsh',
+				'io_config' : [[2,2], [2,2,2]],
+				'relaxation_level' : 2,
+				'generation_inputs' : [1,2],
+				'solver' : SOLVER}
+	dev = di.Devices(device_settings)
+
+	# Creating the games and add them
+	alignment_coefficients = 	[[ 0.00, 0.00, 0.00, 0.00, 1.00, 0.00],
+					[ 0.00, 0.00, 0.00, 0.00, 0.00, 1.00],
+					[ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+					[ 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]]
+	chsh_coefficients = 		[[ 0.25, 0.00, 0.25, 0.00, 0.00, 0.00],
+					[ 0.00, 0.25, 0.00, 0.25, 0.00, 0.00],
+					[ 0.25, 0.00, 0.00, 0.25, 0.00, 0.00],
+					[ 0.00, 0.25, 0.25, 0.00, 0.00, 0.00]]
+
+	align = Game(name = 'align', matrix = alignment_coefficients, score = 1.00, delta=0.001)
+	chsh = Game(name = 'chsh', matrix = chsh_coefficients, score = 0.5 + sqrt(2)/4, delta=0.001)
+
+	dev.games = [align, chsh]
+
+	# We should get hmin = 2 bits
+	print(dev.hmin)
+
+	"""
+	Part 2. accumulation rates
+	"""
+	# Protocol setup
+	protocol_settings =	{'n' 				: 1e12,
+						 'y'				: 5e-3,
+						 'eps_smooth'		: 1e-12,
+						 'eps_eat'			: 1e-12}
+	protocol = Protocol(protocol_settings)
+	print('The completeness error is: ', protocol.completeness(dev))
+
+	# Calculate the initial accumulation rate -- this may be quite negative
+	# at T'sirelon's bound due to a steep gradient in min-tradeoff function space.
+	initial_rate = protocol.eatRate(dev)
+	print('The initial rate was {:.3f} bits per round'.format(initial_rate))
+
+	# Optimise the EAT rate
+	optimised_rate = protocol.optimiseFminChoice(dev, num_iterations = 24)
+	print('The optimised rate is {:.3f} bits per round'.format(random_rate))
+	av, lv, v, _, status = dev.fmin_variables
+	print('This was achieved by the min-tradeoff function corresponding to the score vector ', v)
+
+
+###################
+References
+###################
+
+.. [DIRNG] Peter J. Brown, Sammy Ragy and Roger Colbeck, "An adaptive framework for quantum-secure device-independent randomness expansion", arXiv:1810.13346_, 2018.
 .. [NCPOL] Peter Wittek. Algorithm 950: Ncpol2sdpa---Sparse Semidefinite Programming Relaxations for Polynomial Optimization Problems of Noncommuting Variables. ACM Transactions on Mathematical Software, 41(3), 21, 2015. DOI: 10.1145/2699464. arXiv:1308.6029. Code available on gitlab_.
-.. [SDPA] "A high-performance software package for semidefinite programs: SDPA 7," Makoto Yamashita, Katsuki Fujisawa, Kazuhide Nakata, Maho Nakata, Mituhiro Fukuda, Kazuhiro Kobayashi, and Kazushige Goto, Research Report B-460 Dept. of Mathematical and Computing Science, Tokyo Institute of Technology, Tokyo, Japan, September, 2010.
+.. [SDPA] "A high-performance software package for semidefinite programs: SDPA 7," Makoto Yamashita, Katsuki Fujisawa, Kazuhide Nakata, Maho Nakata, Mituhiro Fukuda, Kazuhiro Kobayashi, and Kazushige Goto, Research Report B-460 Dept. of Mathematical and Computing Science, Tokyo Institute of Technology, Tokyo, Japan, September, 2010. Solvers available at their sourceforge page_.
+.. [EAT] Frédéric Dupuis and Omar Fawzi, “Entropy accumulation with improved second-order,” arXiv:1805.11652_, 2018.
 
 .. _arXiv:1810.13346: https://arxiv.org/abs/1810.13346
 .. _gitlab: https://gitlab.com/peterwittek/ncpol2sdpa
+
+.. _arXiv:quant-ph/0306129: https://arxiv.org/abs/quant-ph/0306129
+.. _arXiv:1805.11652: https://arxiv.org/abs/1805.11652
