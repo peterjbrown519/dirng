@@ -276,15 +276,16 @@ class Devices:
 		directory, name = os.path.split(solver_path)
 		if name == '':
 			raise OSError('Could not find solver \'{}\''.format(solver_path))
+		elif name[-4:] == '.exe':
+			name = name[:-4]
+		self._solver = directory
 
 		self._solver_name = name
 		self._solver_exe = {'executable' : solver_path}
 		if self._solver_name[:4] == 'sdpa' and os.path.exists(os.path.join(directory, 'param.sdpa')):
 			self._solver_exe['paramsfile'] = os.path.join(directory, 'param.sdpa')
 		elif not os.path.exists(os.path.join(directory, 'param.sdpa')):
-			warnings.warn('Could not find param.sdpa file in solver\'s directory. Computation accuracy may be severly affected', Warning)
-
-
+			warnings.warn('Could not find param.sdpa file in solver\'s directory. Computation accuracy may be severely affected', Warning)
 
 	# games
 	@property
