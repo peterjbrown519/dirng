@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='dirng',
-	  version='1.0.0',
+	  version='1.0.1',
 	  author='Peter J. Brown',
 	  author_email='pjb519@york.ac.uk',
 	  description='Designing quantum-secure randomness expansion protocols',
