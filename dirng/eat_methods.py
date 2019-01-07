@@ -292,7 +292,7 @@ def eatRateGA(protocol, device, v_choice = None, w = None, step_size = 0.01, min
 	# Check if we have a bad starting point
 	if current_rate < -1.0e+8:
 		logging.warning('Bad initial choice - aborting optimisation.')
-		return -1.0e+10
+		return -1.0e+10, current_choice[:]
 
 	while step_size > min_step_size:
 		if moved:
