@@ -345,7 +345,7 @@ def optimiseFminChoice(protocol, device, v_choice = None, w = None,
 	if w is None:
 		w = device.score
 
-	current_rate = eatRate(protocol, device, w)
+	current_rate = eatRate(protocol, device, v_choice, w)
 	new_rate, new_choice = eatRateGA(protocol, device, v_choice, w, step_size = step_size, min_step_size = min_step_size, tol = tol, h=h, update=update)
 
 	if new_rate > current_rate:
