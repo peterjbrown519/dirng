@@ -183,7 +183,7 @@ def eatRate(protocol, device, v_choice=None, w=None):
 	Computes the EAT rate, optimising choice of beta
 	"""
 	def f(x):
-		return -eatBetaRate(protocol, device, v_choice, w, x)
+		return np.float64(-eatBetaRate(protocol, device, v_choice, w, x))
 
 	res = minimize_scalar(f, bounds = (0,1), method = 'Bounded', options = {'xatol':1e-8})
 	return -res.fun
