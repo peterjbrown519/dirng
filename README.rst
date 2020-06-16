@@ -38,13 +38,13 @@ If this is done then the solver argument never has to be passed to the device, i
 
 Installation with pip
 =========================
-The package will also be hosted on pypi_. To install from here run the command
+To install the latest version run
 
 .. code-block:: console
 
-	pip3 install dirng --user
+	pip3 install git+https://github.com/peterjbrown519/dirng.git
 
-.. _pypi: https://pypi.org/project/dirng/
+..
 
 #####
 Usage
