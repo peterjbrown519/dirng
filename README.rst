@@ -1,3 +1,5 @@
+**Please note that there is a bug in this code which is currently being fixed. The code will NOT give the correct rate calculations at the moment. This notice will be removed once the code has been fixed. -- Peter**
+
 ####################
 Overview
 ####################
